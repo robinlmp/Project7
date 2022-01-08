@@ -10,12 +10,17 @@ import UIKit
 class ViewController: UITableViewController {
     
     var petitions = [Petition]()
+    var filtered = [Petition]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "US Petitions"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(showCredits))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(showFilter))
         
         //         let urlString = "https://api.whitehouse.gov/v1/petitions.json?limit=100"
         let urlString: String
@@ -40,6 +45,15 @@ class ViewController: UITableViewController {
         
     }
     
+    @objc func showCredits() {
+        let ac = UIAlertController(title: "Copyright credit", message: "The data for this app comes from the 'We The People' API of the Whitehouse", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Dismiss", style: .default))
+        present(ac, animated: true)
+    }
+    
+    @objc func showFilter() {
+        
+    }
     
     func parse(json: Data) {
         let decoder = JSONDecoder()
